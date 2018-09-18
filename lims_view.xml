@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<openerp noupdate="0">
+  <data>
+       <!-- Action to open LIMS Reactor list -->
+       <act_window id="action_lims_reactor_list"
+         name="LIMS Reactor"
+         res_model="lims.reactor"
+         view_mode="tree,form" />
+
+      <!-- Action to open LIMS Product list -->
+       <act_window id="action_lims_product_list"
+         name="LIMS Prouct"
+         res_model="lims.product"
+         view_mode="tree,form" />
+
+      <!-- Action to open LIMS Product list -->
+       <act_window id="action_lims_test_list"
+         name="LIMS Test"
+         res_model="lims.test"
+         view_mode="tree,form" />
+
+      <!-- Action to open LIMS Product Test list -->
+       <act_window id="action_lims_product_test_list"
+         name="LIMS Product Test"
+         res_model="lims.product.test"
+         view_mode="tree,form" />
+
+      <!-- Action to open LIMS Product In Process list -->
+       <act_window id="action_lims_product_in_process_list"
+         name="LIMS Product In Process"
+         res_model="lims.lot"
+         view_mode="tree,form" />
+
+       <!-- Main menu to open product, test and freactor -->
+       <menuitem id="menu_lims_common_data_main"
+         name="Lims Common Data" parent="mail.mail_channel_menu_root_chat" />
+
+       <menuitem id="menu_lims_work_bench_main"
+         name="Lims Work Bench" parent="mail.mail_channel_menu_root_chat" />
+
+       <menuitem id="menu_lims_reactor"
+         name="Reactor"
+         parent="menu_lims_common_data_main"
+         sequence="30"
+         action="action_lims_reactor_list" />
+
+       <menuitem id="menu_lims_test"
+         name="Test"
+         parent="menu_lims_common_data_main"
+         sequence="20"
+         action="action_lims_test_list" />
+
+       <menuitem id="menu_lims_product"
+         name="Product"
+         parent="menu_lims_common_data_main"
+         sequence="10"
+         action="action_lims_product_list" />
+
+       <menuitem id="menu_lims_product_test"
+         name="Product Test"
+         parent="menu_lims_common_data_main"
+         sequence="5"
+         action="action_lims_product_test_list" />
+
+       <menuitem id="menu_lims_product_in_process"
+         name="Product In Process"
+         parent="menu_lims_work_bench_main"
+         sequence="5"
+         action="action_lims_product_in_process_list" />
+
+       <!-- Form View for reactor-->
+       <record id="view_form_lims_reactor" model="ir.ui.view">
+         <field name="name">Lims Reactor Form</field>
+         <field name="model">lims.reactor</field>
+         <field name="arch" type="xml">
+
+           <form string="Lims Reactor">
+               <header>
+                   <button name="alter_inactive" type="object"
+                           string="Force Inactive" class="oe_highlight" />
+                   <button name="alter_active" type="object"
+                           string="Force Active" />
+               </header>
+
+	       <sheet>
+	         <group name="group_top">
+   	           <group name="group_left">
+                       <field name="name"/>
+                       <field name="rdesc"/>
+		       </group>
+       	           <group name="group_right">
+                       <field name="state"/>
+                   </group>
+             </group>
+	       </sheet>	
+           </form>
+
+         </field>
+       </record>
+
+       <!-- Form View for product-->
+       <record id="view_form_lims_product" model="ir.ui.view">
+         <field name="name">Lims Product Form</field>
+         <field name="model">lims.product</field>
+         <field name="arch" type="xml">
+
+           <form string="Lims Product">
+               <header>
+                   <button name="alter_inactive" type="object"
+                           string="Force Inactive" class="oe_highlight" />
+                   <button name="alter_active" type="object"
+                           string="Force Active" />
+               </header>
+
+	       <sheet>
+	         <group name="group_top">
+   	           <group name="group_left">
+                       <field name="name"/>
+                       <field name="pdesc"/>
+		       </group>
+       	           <group name="group_right">
+                       <field name="state"/>
+                   </group>
+             </group>
+	       </sheet>
+           </form>
+
+         </field>
+       </record>
+
+       <!-- Form View for test-->
+       <record id="view_form_lims_test" model="ir.ui.view">
+         <field name="name">Lims Test Form</field>
+         <field name="model">lims.test</field>
+         <field name="arch" type="xml">
+
+           <form string="Lims Test">
+               <header>
+                   <button name="alter_inactive" type="object"
+                           string="Force Inactive" class="oe_highlight" />
+                   <button name="alter_active" type="object"
+                           string="Force Active" />
+               </header>
+
+	       <sheet>
+	         <group name="group_top">
+   	           <group name="group_left">
+                       <field name="name"/>
+                       <field name="tdesc"/>
+		       </group>
+       	           <group name="group_right">
+                       <field name="unit"/>
+                       <field name="state"/>
+                   </group>
+             </group>
+	       </sheet>
+           </form>
+
+         </field>
+       </record>
+
+       <!-- Form View for protest test-->
+       <record id="view_form_lims_test" model="ir.ui.view">
+         <field name="name">Lims Product Test Form</field>
+         <field name="model">lims.product.test</field>
+         <field name="arch" type="xml">
+
+           <form string="Lims Product Test">
+               <header>
+                   <button name="alter_inactive" type="object"
+                           string="Force Inactive" class="oe_highlight" />
+                   <button name="alter_active" type="object"
+                           string="Force Active" />
+               </header>
+
+	        <sheet>
+	         <group name="group_top">
+   	           <group name="group_left">
+                   <field name="product_id" domain="[('state', '=', 'A')]" options="{'no_create_edit': 1}" />
+               <!--    <field name="name"/>  -->
+		       </group>
+       	           <group name="group_right">
+                       <field name="flg" />
+                       <field name="state"/>
+                   </group>
+             </group>
+             <notebook>
+                 <page string="Test Items">
+                     <group>
+                         <field name="test_id" domain="[('state', '=', 'A')]" options="{'no_create_edit': 1}" />
+                         <field name="vmin" />
+                         <field name="vmax" />
+                         <field name="unit" readonly="1" />
+                         <field name="coa" />
+                     </group>
+                 </page>
+             </notebook>
+	        </sheet>
+           </form>
+
+         </field>
+       </record>
+
+
+       <!-- List View for Reactor, Product, Test-->
+       <record id="view_form_lims_reactor_list" model="ir.ui.view">
+         <field name="name">Lims Reactor List</field>
+         <field name="model">lims.reactor</field>
+         <field name="arch" type="xml">
+
+           <tree string="Lims Reactor" colors="gray:state!='A'">
+                 <field name="name"/>
+                 <field name="rdesc"/>
+                 <field name="state"/>
+           </tree>
+
+         </field>
+       </record>
+
+       <record id="view_form_lims_product_list" model="ir.ui.view">
+         <field name="name">Lims Product List</field>
+         <field name="model">lims.product</field>
+         <field name="arch" type="xml">
+
+           <tree string="Lims Product" colors="gray:state!='A'">
+                 <field name="name"/>
+                 <field name="pdesc"/>
+                 <field name="state"/>
+           </tree>
+
+         </field>
+       </record>
+
+       <record id="view_form_lims_test_list" model="ir.ui.view">
+         <field name="name">Lims Test List</field>
+         <field name="model">lims.test</field>
+         <field name="arch" type="xml">
+
+           <tree string="Lims Test" colors="gray:state!='A'">
+                 <field name="name"/>
+                 <field name="tdesc"/>
+                 <field name="unit"/>
+                 <field name="state"/>
+           </tree>
+
+         </field>
+       </record>
+
+       <record id="view_form_lims_product_test_list" model="ir.ui.view">
+         <field name="name">Lims Product Test List</field>
+         <field name="model">lims.product.test</field>
+         <field name="arch" type="xml">
+
+           <tree string="Lims Product Test" colors="gray:state!='A'">
+                 <field name="product_id" />
+                 <field name="test_id" />
+                 <field name="vmin"/>
+                 <field name="vmax"/>
+                 <field name="unit"/>
+                 <field name="coa"/>
+                 <field name="flg"/>
+                 <field name="state"/>
+           </tree>
+
+         </field>
+       </record>
+
+       <!-- Filter/Search view for Reactor, Product, Test -->
+       <record id="view_filter_reactor_list" model="ir.ui.view">
+     	 <field name="name">Reactor List Filter</field>
+    	 <field name="model">lims.reactor</field>
+    	 <field name="arch" type="xml">
+      		 <search>
+        		 <field name="name"/>
+        		 <filter string="Active"
+                		 domain="[('state','=','A')]"/>
+        		 <filter string="Not Active"
+                		 domain="[('state','!=','A')]"/>
+      		 </search>
+    	 </field>
+       </record>
+
+       <record id="view_filter_product_list" model="ir.ui.view">
+     	 <field name="name">Product List Filter</field>
+    	 <field name="model">lims.product</field>
+    	 <field name="arch" type="xml">
+      		 <search>
+        		 <field name="name"/>
+        		 <filter string="Active"
+                		 domain="[('state','=','A')]"/>
+        		 <filter string="Not Active"
+                		 domain="[('state','!=','A')]"/>
+      		 </search>
+    	 </field>
+       </record>
+
+       <record id="view_filter_test_list" model="ir.ui.view">
+     	 <field name="name">Product Test Filter</field>
+    	 <field name="model">lims.test</field>
+    	 <field name="arch" type="xml">
+      		 <search>
+        		 <field name="name"/>
+        		 <filter string="Active"
+                		 domain="[('state','=','A')]"/>
+        		 <filter string="Not Active"
+                		 domain="[('state','!=','A')]"/>
+      		 </search>
+    	 </field>
+       </record>
+
+       <record id="view_filter_product_test_list" model="ir.ui.view">
+     	 <field name="name">Product Test Filter</field>
+    	 <field name="model">lims.product.test</field>
+    	 <field name="arch" type="xml">
+      		 <search>
+        		 <field name="product_id"/>
+        		 <filter string="Active"
+                		 domain="[('state','=','A')]"/>
+        		 <filter string="Not Active"
+                		 domain="[('state','!=','A')]"/>
+                 <filter string="Finish Product Test Items"
+                		 domain="[('flg','=','FP')]"/>
+      		 </search>
+    	 </field>
+       </record>
+
+  </data>
+</openerp>
